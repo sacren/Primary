@@ -24,6 +24,11 @@ class PostSeeder extends Seeder
             fn (User $user) => $this->filterUsers($user)
         );
 
+        if ($users->isEmpty()) {
+            $this->command->warn('No users available to seed posts.');
+            return;
+        }
+
         foreach ($users as $user) {
             Post::factory()->create([
                 'user_id' => $user->id,

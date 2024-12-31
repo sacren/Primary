@@ -13,7 +13,9 @@ class PostSeeder extends Seeder
      */
     public function run(): void
     {
-        $users = User::factory(3)->create();
+        $users = User::all()->filter(
+            fn ($user) => $user->name !== 'Test User'
+        );
 
         foreach ($users as $user) {
             Post::factory()->create([

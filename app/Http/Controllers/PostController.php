@@ -64,7 +64,7 @@ class PostController extends Controller
      */
     public function edit(Post $post)
     {
-        //
+        return view('posts.edit', compact('post'));
     }
 
     /**
@@ -72,7 +72,21 @@ class PostController extends Controller
      */
     public function update(Request $request, Post $post)
     {
-        //
+        $request->validate([
+            'content' => [
+                'required',
+                'string',
+                'max:255',
+                'min:1',
+                'prohibited_if:content,null',
+            ],
+        ]);
+
+        $post->update([
+            'content' => $request->content,
+        ]);
+
+        return redirect()->route('posts.index');
     }
 
     /**

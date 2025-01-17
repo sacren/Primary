@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Post;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class PostController extends Controller
 {
@@ -22,7 +23,7 @@ class PostController extends Controller
      */
     public function create()
     {
-        //
+        return view('posts.create');
     }
 
     /**
@@ -30,7 +31,24 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'content' => [
+                'required',
+                'string',
+                'max:255',
+                'min:1',
+                'prohibited_if:content,null',
+            ],
+        ]);
+
+        $user = Auth::user();
+
+        Post::create([
+            'content' => $request->content,
+            'user_id' => $user->id,
+        ]);
+
+        return redirect()->route('posts.index');
     }
 
     /**

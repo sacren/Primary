@@ -12,6 +12,16 @@ class Post extends Model
     use HasFactory;
 
     /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = [
+        'content',
+        'user_id',
+    ];
+
+    /**
      * Get the user that published the post.
      *
      * @return BelongsTo

@@ -52,14 +52,6 @@ class PostController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     */
-    public function show(Post $post)
-    {
-        //
-    }
-
-    /**
      * Show the form for editing the specified resource.
      */
     public function edit(Post $post)
@@ -94,6 +86,10 @@ class PostController extends Controller
      */
     public function destroy(Post $post)
     {
-        //
+        $post->delete();
+
+        return redirect()
+            ->route('posts.index')
+            ->with('success', 'Post deleted successfully.');
     }
 }

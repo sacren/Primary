@@ -15,11 +15,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('posts/{post}', [PostController::class, 'edit'])->name('posts.edit');
     Route::patch('posts/{post}', [PostController::class, 'update'])->name('posts.update');
     Route::delete('posts/{post}', [PostController::class, 'destroy'])->name('posts.destroy');
-});
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+    Route::get('dashboard', fn () => view('dashboard'))->name('dashboard');
+});
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
